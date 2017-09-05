@@ -4,15 +4,16 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "product", schema = "auction")
-public class ProductEntity implements Serializable {
-    private int id;
-    private String name;
+@Table(name = "products", schema = "auction")
+public class ProductsEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private int id;
+    private String name;
+
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -22,7 +23,7 @@ public class ProductEntity implements Serializable {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -36,7 +37,7 @@ public class ProductEntity implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ProductEntity that = (ProductEntity) o;
+        ProductsEntity that = (ProductsEntity) o;
 
         if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;

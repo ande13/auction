@@ -16,6 +16,13 @@
         <spring.version>4.3.10.RELEASE</spring.version>
         <!-- Hibernate -->
         <hibernate.version>5.2.10.Final</hibernate.version>
+
+        <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
+        <db.url>jdbc:mysql://localhost:3306</db.url>
+        <db.name>auction</db.name>
+        <db.user>admin</db.user>
+        <db.password>admin</db.password>
+
     </properties>
 
     <dependencies>
@@ -30,26 +37,6 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-            <version>1.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>6.0.6</version>
-        </dependency>
     </dependencies>
 
     <modules>

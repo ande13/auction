@@ -1,7 +1,7 @@
 package com.auction;
 
-import com.auction.entities.ProductEntity;
-import com.auction.services.ProductService;
+import com.auction.entities.ProductsEntity;
+import com.auction.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +14,12 @@ import java.util.List;
 public class HelloWorldController {
 
     @Autowired
-    private ProductService productService;
+    private ProductsService productsService;
 
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String printHello(Model model) {
 
-        List<ProductEntity> all = productService.getAll();
+        List<ProductsEntity> all = productsService.getAll();
 
         return "index";
     }
