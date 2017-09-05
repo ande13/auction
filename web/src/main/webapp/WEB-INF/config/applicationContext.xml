@@ -9,5 +9,5 @@
 
     <!-- Static Resources Configuration (get access to static sources such as CSS and JavaScript files) -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
-    <mvc:resources mapping="/html/**" location="/WEB-INF/html/" />
+    <mvc:resources mapping="/html/**" location="/WEB-INF/pages/" />
 </beans>

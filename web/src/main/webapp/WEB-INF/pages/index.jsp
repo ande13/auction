@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Auction</title>
 </head>
 <body>
-HELLOOOO!!!
+<h1>Size of products ${products.size()}</h1>
 </body>
 </html>
