@@ -1,5 +1,7 @@
 package com.auction.model;
 
+import com.auction.adapters.ProductAdapter;
+import com.auction.dto.products.Product;
 import com.auction.entities.ProductsEntity;
 import com.auction.services.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class ProductsModel {
@@ -14,38 +17,37 @@ public class ProductsModel {
     @Autowired
     private ProductsService<ProductsEntity> productsService;
 
-    private int pageNumber;
+    @Autowired
+    private ProductAdapter productAdapter;
+
     private int itemsPerPage;
 
     private int countOfAllRecords;
 
-    private List<ProductsEntity> productsItems;
-
     @PostConstruct
     public void init() {
-        pageNumber = 1;
         itemsPerPage = 10;
+        countOfAllRecords = productsService.getRecordsCount();
     }
 
     public void reInit(int numberOfPage) {
-        this.pageNumber = numberOfPage < 1 ? pageNumber : numberOfPage;
-        this.productsItems = productsService.getRecords(getOffset(), itemsPerPage);
         this.countOfAllRecords = productsService.getRecordsCount();
     }
 
-    public List<ProductsEntity> getProductsItems() {
-        return productsItems;
+    public List<Product> getProductsItems(int pageNumber) {
+        List<ProductsEntity> records = productsService.getRecords(getOffset(pageNumber), itemsPerPage);
+        return records.stream().map(record -> productAdapter.getProduct(record)).collect(Collectors.toList());
     }
 
-    private int getOffset() {
+    private int getOffset(int pageNumber) {
         return pageNumber < 1 ? 0 : (pageNumber - 1) * itemsPerPage;
     }
 
-    public int getPageNumber() {
-        return pageNumber;
+    public int getCountOfAllRecords() {
+        return countOfAllRecords;
     }
 
-    public int getPageCount() {
-        return countOfAllRecords / itemsPerPage + 1;
+    public int getItemsPerPage() {
+        return itemsPerPage;
     }
 }

@@ -9,6 +9,6 @@ public class EmptyController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String openDefaultPage() {
-        return "welcome";
+        return "redirect:/auction/products";
     }
 }
