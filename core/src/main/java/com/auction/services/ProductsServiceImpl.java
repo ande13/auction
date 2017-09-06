@@ -8,16 +8,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProductsServiceImpl implements ProductsService {
+public class ProductsServiceImpl implements ProductsService<ProductsEntity> {
 
     @Autowired
-    private ProductsDAO productsDAO;
+    private ProductsDAO<ProductsEntity> productsDAO;
 
     public List<ProductsEntity> getAll() {
         return productsDAO.getAll();
     }
 
-    public void batchInsert(List<? extends ProductsEntity> products) {
-        productsDAO.batchInsert(products);
+    public int getCountOfRecords() {
+        return productsDAO.getCountOfRecords();
+    }
+
+    public List<ProductsEntity> getRecords(int offset, int itemsCount) {
+        return productsDAO.getRecords(offset, itemsCount);
     }
 }

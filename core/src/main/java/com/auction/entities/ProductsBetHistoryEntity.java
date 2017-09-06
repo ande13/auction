@@ -12,8 +12,9 @@ public class ProductsBetHistoryEntity implements Serializable {
 
     private int id;
     private int productId;
-    private String name;
+    private int price;
     private Date creationDate;
+    private ProductsEntity productsEntity;
 
     @Id
     @Column(name = "id")
@@ -26,13 +27,13 @@ public class ProductsBetHistoryEntity implements Serializable {
     }
 
     @Basic
-    @Column(name = "name")
-    public String getName() {
-        return name;
+    @Column(name = "price")
+    public int getName() {
+        return price;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(int name) {
+        this.price = name;
     }
 
     @Basic
@@ -55,6 +56,16 @@ public class ProductsBetHistoryEntity implements Serializable {
         this.creationDate = creationDate;
     }
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id", nullable = false)
+    public ProductsEntity getProductsEntity() {
+        return productsEntity;
+    }
+
+    public void setProductsEntity(ProductsEntity productsEntity) {
+        this.productsEntity = productsEntity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,18 +75,15 @@ public class ProductsBetHistoryEntity implements Serializable {
 
         if (id != that.id) return false;
         if (productId != that.productId) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (price != that.price) return false;
         if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
 
         return true;
     }
 
-
-
     @Override
     public int hashCode() {
-        int result = id + productId;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        int result = id + productId + price;
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         return result;
     }

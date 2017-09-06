@@ -2,6 +2,8 @@ package com.auction.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "products", schema = "auction")
@@ -11,6 +13,11 @@ public class ProductsEntity implements Serializable {
 
     private int id;
     private String name;
+    private List<ProductsBetHistoryEntity> productsBets;
+
+    public ProductsEntity() {
+        productsBets = new ArrayList<ProductsBetHistoryEntity>();
+    }
 
     @Id
     @Column(name = "id")
@@ -30,6 +37,15 @@ public class ProductsEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "productsEntity")
+    public List<ProductsBetHistoryEntity> getProductsBets() {
+        return this.productsBets;
+    }
+
+    public void setProductsBets(List<ProductsBetHistoryEntity> productsBets) {
+        this.productsBets = productsBets;
     }
 
     @Override

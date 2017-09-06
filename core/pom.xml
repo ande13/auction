@@ -34,93 +34,98 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>sql-maven-plugin</artifactId>
-                <version>1.5</version>
+    <profiles>
+        <profile>
+            <id>create_test_db</id>
 
-                <dependencies>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>6.0.6</version>
-                    </dependency>
-                </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sql-maven-plugin</artifactId>
+                        <version>1.5</version>
 
-                <configuration>
-                    <driver>${db.driver}</driver>
-                    <url>${db.url}</url>
-                    <username>${db.user}</username>
-                    <password>${db.password}</password>
-                    <!--<skip>${skipTests}</skip>-->
-                </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>mysql</groupId>
+                                <artifactId>mysql-connector-java</artifactId>
+                                <version>6.0.6</version>
+                            </dependency>
+                        </dependencies>
 
-                <executions>
-
-                    <execution>
-                        <id>drop-db-before-test-if-any</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
                         <configuration>
-                            <!--<skip>${skipSqlExecutions}</skip>-->
-                            <autocommit>true</autocommit>
-                            <sqlCommand>drop database if exists ${db.name}</sqlCommand>
-                            <onError>abort</onError>
+                            <driver>${db.driver}</driver>
+                            <url>${db.url}</url>
+                            <username>${db.user}</username>
+                            <password>${db.password}</password>
                         </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>create-db</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
+                        <executions>
+                            <execution>
+                                <id>drop-db-before-test-if-any</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <autocommit>true</autocommit>
+                                    <sqlCommand>DROP DATABASE IF EXISTS ${db.name}</sqlCommand>
+                                    <onError>abort</onError>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>create-db</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <autocommit>true</autocommit>
+                                    <sqlCommand>CREATE DATABASE ${db.name}</sqlCommand>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.flywaydb</groupId>
+                        <artifactId>flyway-maven-plugin</artifactId>
+                        <version>3.0</version>
                         <configuration>
-                            <!--<skip>${skipSqlExecutions}</skip>-->
-                            <autocommit>true</autocommit>
-                            <sqlCommand>create database ${db.name}</sqlCommand>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>create-schema</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
+                            <driver>${db.driver}</driver>
                             <url>${db.url}/${db.name}</url>
-                            <autocommit>true</autocommit>
-                            <srcFiles>
-                                <srcFile>src/main/resources/create_db.sql</srcFile>
-                            </srcFiles>
+                            <user>${db.user}</user>
+                            <password>${db.password}</password>
+                            <schemas>
+                                <schema>auction</schema>
+                            </schemas>
                         </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>insert-data</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <!--<skip>${skipSqlExecutions}</skip>-->
-                            <url>${db.url}/${db.name}</url>
-                            <autocommit>true</autocommit>
-                            <delimiter>//</delimiter>
-                            <!--<delimiterType>row</delimiterType>-->
-                            <srcFiles>
-                                <srcFile>src/main/resources/populate_db.sql</srcFile>
-                            </srcFiles>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+                        <executions>
+                            <execution>
+                                <id>init</id>
+                                <goals>
+                                    <goal>migrate</goal>
+                                </goals>
+                                <configuration>
+                                    <locations>
+                                        <location>filesystem:${basedir}/src/main/resources/testdata</location>
+                                    </locations>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>migrate</id>
+                                <goals>
+                                    <goal>migrate</goal>
+                                </goals>
+                                <configuration>
+                                    <locations>
+                                        <location>filesystem:${basedir}/src/main/resources/testdata</location>
+                                    </locations>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

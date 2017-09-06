@@ -8,5 +8,7 @@ public interface ProductsDAO<T extends ProductsEntity> {
 
     List<T> getAll();
 
-    void batchInsert(List<? extends T> products);
+    int getCountOfRecords();
+
+    List<T> getRecords(int offset, int itemsCount);
 }

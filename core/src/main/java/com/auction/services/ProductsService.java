@@ -4,9 +4,11 @@ import com.auction.entities.ProductsEntity;
 
 import java.util.List;
 
-public interface ProductsService {
+public interface ProductsService<T extends ProductsEntity> {
 
-    List<ProductsEntity> getAll();
+    List<T> getAll();
 
-    void batchInsert(List<? extends ProductsEntity> products);
+    int getCountOfRecords();
+
+    List<T> getRecords(int offset, int itemsCount);
 }
