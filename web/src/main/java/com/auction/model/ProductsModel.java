@@ -28,7 +28,7 @@ public class ProductsModel {
     }
 
     public void reInit(int numberOfPage) {
-        this.pageNumber = numberOfPage;
+        this.pageNumber = numberOfPage < 1 ? pageNumber : numberOfPage;
         this.productsItems = productsService.getRecords(getOffset(), itemsPerPage);
         this.countOfAllRecords = productsService.getRecordsCount();
     }
