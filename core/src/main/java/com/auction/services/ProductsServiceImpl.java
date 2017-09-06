@@ -17,8 +17,8 @@ public class ProductsServiceImpl implements ProductsService<ProductsEntity> {
         return productsDAO.getAll();
     }
 
-    public int getCountOfRecords() {
-        return productsDAO.getCountOfRecords();
+    public int getRecordsCount() {
+        return productsDAO.getRecordsCount();
     }
 
     public List<ProductsEntity> getRecords(int offset, int itemsCount) {

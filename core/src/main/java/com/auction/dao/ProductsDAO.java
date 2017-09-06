@@ -8,7 +8,7 @@ public interface ProductsDAO<T extends ProductsEntity> {
 
     List<T> getAll();
 
-    int getCountOfRecords();
+    int getRecordsCount();
 
     List<T> getRecords(int offset, int itemsCount);
 }

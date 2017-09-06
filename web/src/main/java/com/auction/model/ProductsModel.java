@@ -27,14 +27,10 @@ public class ProductsModel {
         itemsPerPage = 10;
     }
 
-    public void redraw(int numberOfPage) {
+    public void reInit(int numberOfPage) {
         this.pageNumber = numberOfPage;
         this.productsItems = productsService.getRecords(getOffset(), itemsPerPage);
-        this.countOfAllRecords = productsService.getCountOfRecords();
-    }
-
-    public int getProductsItemsSize() {
-        return productsItems.size();
+        this.countOfAllRecords = productsService.getRecordsCount();
     }
 
     public List<ProductsEntity> getProductsItems() {

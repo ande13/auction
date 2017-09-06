@@ -57,7 +57,7 @@ public class ProductsBetHistoryEntity implements Serializable {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "product_id", nullable = false, insertable = false, updatable = false)
     public ProductsEntity getProductsEntity() {
         return productsEntity;
     }

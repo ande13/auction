@@ -22,7 +22,7 @@ public class ProductsController {
 
     @RequestMapping(value = "/products/page/{pageNumber}", method = RequestMethod.GET)
     public ModelAndView showProducts(@PathVariable("pageNumber") Integer pageNumber) {
-        productsModel.redraw(pageNumber);
+        productsModel.reInit(pageNumber);
         return new ModelAndView("index", "productsModel", productsModel);
     }
 }

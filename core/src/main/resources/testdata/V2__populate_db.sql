@@ -4,7 +4,7 @@ CREATE PROCEDURE generate_test_data()
     DECLARE i INT DEFAULT 0;
     DECLARE bets INT DEFAULT 0;
     DECLARE j INT DEFAULT 0;
-    WHILE i < 1000 DO
+    WHILE i < 1000000 DO
       INSERT INTO products (id, name) VALUES (i, concat('product_', i));
       SET bets = FLOOR((RAND() * (1000 - 100)) + 100);
       WHILE j < bets DO

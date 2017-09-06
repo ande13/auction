@@ -23,7 +23,7 @@ public class ProductsDAOImpl implements ProductsDAO<ProductsEntity> {
         return hibernateTemplate.loadAll(ProductsEntity.class);
     }
 
-    public int getCountOfRecords() {
+    public int getRecordsCount() {
         return hibernateTemplate.execute(new HibernateCallback<Integer>() {
             public Integer doInHibernate(Session session) {
                 return session.createQuery("select count(1) from ProductsEntity", Long.class).getSingleResult().intValue();
