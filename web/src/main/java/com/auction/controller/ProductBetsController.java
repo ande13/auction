@@ -20,4 +20,9 @@ public class ProductBetsController {
         json.put("items", betsModel.getBets(productId));
         return json.toString();
     }
+
+    @RequestMapping(value = "/product/bets/submit", method = RequestMethod.POST)
+    public String submitBet(@RequestParam int productId, @RequestParam  int price) {
+        return new JSONObject(betsModel.addBet(productId, price)).toString();
+    }
 }

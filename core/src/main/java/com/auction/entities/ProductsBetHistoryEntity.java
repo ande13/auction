@@ -2,7 +2,7 @@ package com.auction.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "products_bet_history", schema = "auction")
@@ -15,6 +15,15 @@ public class ProductsBetHistoryEntity implements Serializable {
     private int price;
     private Date creationDate;
     private ProductsEntity productsEntity;
+
+    public ProductsBetHistoryEntity() {
+    }
+
+    public ProductsBetHistoryEntity(int productId, int price, Date creationDate) {
+        this.productId = productId;
+        this.price = price;
+        this.creationDate = creationDate;
+    }
 
     @Id
     @Column(name = "id")

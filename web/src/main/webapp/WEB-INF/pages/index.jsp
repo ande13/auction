@@ -52,7 +52,34 @@
         </div>
     </div>
     <div id="product-bets-list" class="jumbotron">
+        <div class="product-bets-buttons-wrapper row">
+            <button id="addBetButton" type="button" class="btn btn-success col-1" data-toggle="modal" data-target="#addBetModal">Add bet</button>
+        </div>
         <div class="product-bets-data-container row"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="addBetModal" tabindex="-1" role="dialog" aria-labelledby="addBetModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addBetModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <span class="input-group-addon">0.00</span>
+                    <input id="betValue" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="submitBet" type="button" class="btn btn-primary">Add</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
     </div>
 </div>
 

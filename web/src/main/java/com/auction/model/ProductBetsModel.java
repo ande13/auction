@@ -23,4 +23,8 @@ public class ProductBetsModel extends BaseModel {
         List<ProductsBetHistoryEntity> betsByProductId = historyService.getBetsByProductId(productId);
         return betsByProductId.stream().map(product -> productBetAdapter.getProductBet(product)).collect(Collectors.toList());
     }
+
+    public ProductBet addBet(int productId, int price) {
+        return productBetAdapter.getProductBet(historyService.addBet(productId, price));
+    }
 }

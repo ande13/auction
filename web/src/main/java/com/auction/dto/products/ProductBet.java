@@ -1,6 +1,6 @@
 package com.auction.dto.products;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class ProductBet {
 

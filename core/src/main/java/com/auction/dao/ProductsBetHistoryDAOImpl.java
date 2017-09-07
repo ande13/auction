@@ -6,6 +6,7 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -25,4 +26,12 @@ public class ProductsBetHistoryDAOImpl implements ProductsBetHistoryDAO<Products
         );
     }
 
+    @Override
+    public ProductsBetHistoryEntity addBet(int productId, int price) {
+        ProductsBetHistoryEntity bet = new ProductsBetHistoryEntity(productId, price, new Date());
+        hibernateTemplate.execute(session ->
+                session.save(bet)
+        );
+        return bet;
+    }
 }

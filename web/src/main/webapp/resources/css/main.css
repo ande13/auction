@@ -1,16 +1,22 @@
-html, body, .content-container {
+html {
     height: 100%;
+    background-color: #d8dce0;
 }
 
-#products-list, #product-bets-list {
-    height: 50%;
+.product-bets-buttons-wrapper {
+    padding: 10px 5px 10px 36px;
+}
+
+.product-bets-buttons-wrapper.row,
+.products-data-container.row,
+.product-bets-data-container.row {
+    margin-right: 0;
+    margin-left: 0;
 }
 
 .products-data-container.row,
 .product-bets-data-container.row {
     padding: 10px;
-    margin-right: 0;
-    margin-left: 0;
 }
 
 .products-data-container .card,
@@ -39,6 +45,7 @@ html, body, .content-container {
 
 #product-bets-list {
     background-color: #d8dce0;
+    display: none;
 }
 
 .btn {
