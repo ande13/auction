@@ -1,6 +1,6 @@
 package com.auction.model;
 
-import com.auction.adapters.ProductAdapter;
+import com.auction.adapters.ModelsAdapter;
 import com.auction.dto.products.Product;
 import com.auction.entities.ProductsEntity;
 import com.auction.services.ProductsService;
@@ -17,9 +17,6 @@ public class ProductsModel extends BaseModel {
     @Autowired
     private ProductsService<ProductsEntity> productsService;
 
-    @Autowired
-    private ProductAdapter productAdapter;
-
     private int countOfAllRecords;
 
     @PostConstruct
@@ -29,7 +26,7 @@ public class ProductsModel extends BaseModel {
 
     public List<Product> getProductsItems(int pageNumber) {
         List<ProductsEntity> records = productsService.getRecords(getOffset(pageNumber), getItemsPerPage());
-        return records.stream().map(record -> productAdapter.getProduct(record)).collect(Collectors.toList());
+        return records.stream().map(ModelsAdapter::toProduct).collect(Collectors.toList());
     }
 
     public int getCountOfAllRecords() {
