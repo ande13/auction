@@ -12,7 +12,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ProductsModel {
+public class ProductsModel extends BaseModel {
+
+    private static final int ITEMS_PER_PAGE = 10;
 
     @Autowired
     private ProductsService<ProductsEntity> productsService;
@@ -20,34 +22,23 @@ public class ProductsModel {
     @Autowired
     private ProductAdapter productAdapter;
 
-    private int itemsPerPage;
+    public ProductsModel() {
+        super(ITEMS_PER_PAGE);
+    }
 
     private int countOfAllRecords;
 
     @PostConstruct
     public void init() {
-        itemsPerPage = 10;
         countOfAllRecords = productsService.getRecordsCount();
     }
 
-    public void reInit(int numberOfPage) {
-        this.countOfAllRecords = productsService.getRecordsCount();
-    }
-
     public List<Product> getProductsItems(int pageNumber) {
-        List<ProductsEntity> records = productsService.getRecords(getOffset(pageNumber), itemsPerPage);
+        List<ProductsEntity> records = productsService.getRecords(getOffset(pageNumber), getItemsPerPage());
         return records.stream().map(record -> productAdapter.getProduct(record)).collect(Collectors.toList());
-    }
-
-    private int getOffset(int pageNumber) {
-        return pageNumber < 1 ? 0 : (pageNumber - 1) * itemsPerPage;
     }
 
     public int getCountOfAllRecords() {
         return countOfAllRecords;
-    }
-
-    public int getItemsPerPage() {
-        return itemsPerPage;
     }
 }

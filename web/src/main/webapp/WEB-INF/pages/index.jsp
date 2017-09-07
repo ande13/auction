@@ -4,7 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Auction</title>
-    <script src="/resources/js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/resources/css/pagination.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap/4.0.0-beta/bootstrap.min.css">
+    <script src="/resources/js/jquery/jquery-3.2.1.min.js"></script>
+    <script src="/resources/js/jquery/jquery.loadTemplate-1.4.4.js"></script>
+    <script src="/resources/js/bootstrap/popper.min.js"></script>
+    <script src="/resources/js/bootstrap/4.0.0-beta/bootstrap.min.js"></script>
     <script src="/resources/js/pagination.js"></script>
     <script src="/resources/js/main.js"></script>
     <script>
@@ -15,39 +21,29 @@
             });
         });
     </script>
+    <script type="text/html" id="product-template">
+        <div class="card col-2">
+            <div class="card-body">
+                <h4 class="card-title" data-content="name"></h4>
+                <h6 class="card-subtitle mb-2 text-muted" data-content="name"></h6>
+                <p class="card-text">Some information about product</p>
+                <button type="button" class="btn btn-info product-button" data-id="id">Show bets</button>
+            </div>
+        </div>
+    </script>
 </head>
 <body>
 
-<div id="demo">
-    <div class="data-container"></div>
+<div class="content-container">
+    <div id="products-list" class="jumbotron">
+        <div class="products-data-container row">
+            <div class="jumbotron">
+                <h1 class="display-3">Downloading data ...</h1>
+            </div>
+        </div>
+    </div>
+    <div class="product-bets-list"></div>
 </div>
-
-<%--<table border="1" cellpadding="5" cellspacing="5">--%>
-    <%--<tr>--%>
-        <%--<th>Product name</th>--%>
-    <%--</tr>--%>
-
-    <%--<c:forEach var="item" items="${productsModel.productsItems}">--%>
-        <%--<tr>--%>
-            <%--<td>${item.name}</td>--%>
-        <%--</tr>--%>
-    <%--</c:forEach>--%>
-<%--</table>--%>
-
-<%--<table border="1" cellpadding="5" cellspacing="5">--%>
-    <%--<tr>--%>
-        <%--<c:forEach begin="1" end="${productsModel.pageCount}" var="i">--%>
-            <%--<c:choose>--%>
-                <%--<c:when test="${productsModel.pageNumber eq i}">--%>
-                    <%--<td>${i}</td>--%>
-                <%--</c:when>--%>
-                <%--<c:otherwise>--%>
-                    <%--<td><a href="/auction/products/page/${i}">${i}</a></td>--%>
-                <%--</c:otherwise>--%>
-            <%--</c:choose>--%>
-        <%--</c:forEach>--%>
-    <%--</tr>--%>
-<%--</table>--%>
 
 </body>
 </html>

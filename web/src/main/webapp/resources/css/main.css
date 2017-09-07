@@ -1,0 +1,30 @@
+.products-data-container.row {
+    padding: 10px;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.products-data-container .card {
+    margin: 5px 23px 5px 23px;
+}
+
+.paginationjs .paginationjs-pages {
+    width: 100%;
+    text-align: center;
+    float: none;
+}
+
+.paginationjs .paginationjs-pages ul {
+    display: inline-block;
+    text-align: initial;
+    float: none;
+}
+
+.content-container #products-list {
+    padding: 0;
+    border-radius: 0;
+}
+
+.btn {
+    cursor: pointer;
+}
