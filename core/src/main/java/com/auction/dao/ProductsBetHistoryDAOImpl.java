@@ -13,7 +13,11 @@ import java.util.List;
 @Transactional
 public class ProductsBetHistoryDAOImpl implements ProductsBetHistoryDAO<ProductsBetHistoryEntity> {
 
+    private static final String PRODUCT_ID = "productId";
+    private static final String PRICE = "price";
+
     private static final String GET_RECORDS_BY_PARENT_ID = "from ProductsBetHistoryEntity h where h.productId = :productId order by h.creationDate desc";
+    private static final String GET_BET_BY_PARAMS = "from ProductsBetHistoryEntity h where h.productId = :productId and h.price = :price";
 
     @Autowired
     private HibernateTemplate hibernateTemplate;
@@ -22,16 +26,23 @@ public class ProductsBetHistoryDAOImpl implements ProductsBetHistoryDAO<Products
     public List<ProductsBetHistoryEntity> getBetsByProductId(int productId) {
         return hibernateTemplate.execute(session ->
                 session.createQuery(GET_RECORDS_BY_PARENT_ID, ProductsBetHistoryEntity.class)
-                        .setParameter("productId", productId).list()
+                        .setParameter(PRODUCT_ID, productId).list()
         );
     }
 
     @Override
     public ProductsBetHistoryEntity addBet(int productId, int price) {
         ProductsBetHistoryEntity bet = new ProductsBetHistoryEntity(productId, price, new Date());
-        hibernateTemplate.execute(session ->
-                session.save(bet)
-        );
+        hibernateTemplate.execute(session -> session.save(bet));
         return bet;
+    }
+
+    @Override
+    public ProductsBetHistoryEntity getBet(int productId, int price) {
+        return hibernateTemplate.execute(session ->
+                session.createQuery(GET_BET_BY_PARAMS, ProductsBetHistoryEntity.class)
+                        .setParameter(PRODUCT_ID, productId)
+                        .setParameter(PRICE, price).uniqueResult()
+        );
     }
 }

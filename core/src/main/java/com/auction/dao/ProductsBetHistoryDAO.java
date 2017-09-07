@@ -9,4 +9,6 @@ public interface ProductsBetHistoryDAO<T extends ProductsBetHistoryEntity> {
     List<T> getBetsByProductId(int productId);
 
     ProductsBetHistoryEntity addBet(int productId, int price);
+
+    ProductsBetHistoryEntity getBet(int productId, int price);
 }

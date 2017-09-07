@@ -71,7 +71,7 @@
             <div class="modal-body">
                 <div class="input-group">
                     <span class="input-group-addon">$</span>
-                    <span class="input-group-addon">0.00</span>
+                    <span class="input-group-addon">1234</span>
                     <input id="betValue" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
                 </div>
             </div>

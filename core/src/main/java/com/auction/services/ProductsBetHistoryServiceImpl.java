@@ -2,6 +2,7 @@ package com.auction.services;
 
 import com.auction.dao.ProductsBetHistoryDAO;
 import com.auction.entities.ProductsBetHistoryEntity;
+import com.auction.exceptions.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,16 @@ public class ProductsBetHistoryServiceImpl implements ProductsBetHistoryService<
     }
 
     @Override
-    public ProductsBetHistoryEntity addBet(int productId, int price) {
+    public ProductsBetHistoryEntity addBet(int productId, int price) throws BusinessException {
+        ProductsBetHistoryEntity bet = getBet(productId, price);
+        if (bet != null) {
+            throw new BusinessException("Bet with price " + price + " is already exist");
+        }
         return historyDAO.addBet(productId, price);
+    }
+
+    @Override
+    public ProductsBetHistoryEntity getBet(int productId, int price) {
+        return historyDAO.getBet(productId, price);
     }
 }
