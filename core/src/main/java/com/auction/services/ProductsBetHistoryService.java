@@ -1,4 +1,10 @@
 package com.auction.services;
 
-public interface ProductsBetHistoryService {
+import com.auction.entities.ProductsBetHistoryEntity;
+
+import java.util.List;
+
+public interface ProductsBetHistoryService<T extends ProductsBetHistoryEntity>  {
+
+    List<T> getBetsByProductId(int productId);
 }

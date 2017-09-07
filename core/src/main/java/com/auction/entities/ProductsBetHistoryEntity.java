@@ -28,12 +28,12 @@ public class ProductsBetHistoryEntity implements Serializable {
 
     @Basic
     @Column(name = "price")
-    public int getName() {
+    public int getPrice() {
         return price;
     }
 
-    public void setName(int name) {
-        this.price = name;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     @Basic

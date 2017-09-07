@@ -14,17 +14,11 @@ import java.util.stream.Collectors;
 @Component
 public class ProductsModel extends BaseModel {
 
-    private static final int ITEMS_PER_PAGE = 10;
-
     @Autowired
     private ProductsService<ProductsEntity> productsService;
 
     @Autowired
     private ProductAdapter productAdapter;
-
-    public ProductsModel() {
-        super(ITEMS_PER_PAGE);
-    }
 
     private int countOfAllRecords;
 

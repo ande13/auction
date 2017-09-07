@@ -1,10 +1,20 @@
-.products-data-container.row {
+html, body, .content-container {
+    height: 100%;
+}
+
+#products-list, #product-bets-list {
+    height: 50%;
+}
+
+.products-data-container.row,
+.product-bets-data-container.row {
     padding: 10px;
     margin-right: 0;
     margin-left: 0;
 }
 
-.products-data-container .card {
+.products-data-container .card,
+.product-bets-data-container .card {
     margin: 5px 23px 5px 23px;
 }
 
@@ -20,9 +30,15 @@
     float: none;
 }
 
-.content-container #products-list {
+.content-container #products-list,
+.content-container #product-bets-list {
     padding: 0;
     border-radius: 0;
+    margin-bottom: 0;
+}
+
+#product-bets-list {
+    background-color: #d8dce0;
 }
 
 .btn {

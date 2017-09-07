@@ -31,6 +31,15 @@
             </div>
         </div>
     </script>
+    <script type="text/html" id="product-bet-template">
+        <div class="card col-2">
+            <div class="card-body">
+                <h4 class="card-title" data-content="price"></h4>
+                <h6 class="card-subtitle mb-2 text-muted" data-content="productId"></h6>
+                <p class="card-text" data-content-append="creationDate">Some price for product. Date: </p>
+            </div>
+        </div>
+    </script>
 </head>
 <body>
 
@@ -42,7 +51,9 @@
             </div>
         </div>
     </div>
-    <div class="product-bets-list"></div>
+    <div id="product-bets-list" class="jumbotron">
+        <div class="product-bets-data-container row"></div>
+    </div>
 </div>
 
 </body>

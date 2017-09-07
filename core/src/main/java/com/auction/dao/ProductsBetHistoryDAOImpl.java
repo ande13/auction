@@ -1,8 +1,6 @@
 package com.auction.dao;
 
 import com.auction.entities.ProductsBetHistoryEntity;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
@@ -14,12 +12,17 @@ import java.util.List;
 @Transactional
 public class ProductsBetHistoryDAOImpl implements ProductsBetHistoryDAO<ProductsBetHistoryEntity> {
 
+    private static final String GET_RECORDS_BY_PARENT_ID = "from ProductsBetHistoryEntity h where h.productId = :productId order by h.creationDate desc";
+
     @Autowired
     private HibernateTemplate hibernateTemplate;
 
-    public List<ProductsBetHistoryEntity> getByParentId(int parentId) {
-        DetachedCriteria criteria = DetachedCriteria.forClass(ProductsBetHistoryEntity.class);
-        criteria.add(Restrictions.eq("parent_id", parentId));
-        return (List<ProductsBetHistoryEntity>) hibernateTemplate.findByCriteria(criteria);
+    @Override
+    public List<ProductsBetHistoryEntity> getBetsByProductId(int productId) {
+        return hibernateTemplate.execute(session ->
+                session.createQuery(GET_RECORDS_BY_PARENT_ID, ProductsBetHistoryEntity.class)
+                        .setParameter("productId", productId).list()
+        );
     }
+
 }

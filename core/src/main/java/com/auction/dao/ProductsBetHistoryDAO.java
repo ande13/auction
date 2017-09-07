@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ProductsBetHistoryDAO<T extends ProductsBetHistoryEntity> {
 
-    List<T> getByParentId(int parentId);
+    List<T> getBetsByProductId(int productId);
 }

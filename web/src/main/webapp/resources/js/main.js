@@ -14,7 +14,28 @@ function init(products) {
 }
 
 function initEvents() {
+    const dataContainer = $('.product-bets-data-container');
     $('.product-button').click(function () {
-        console.log(this);
+        const id = $(this).attr('id');
+        $('#product-bets-list').pagination({
+            dataSource: function (done) {
+                $.ajax({
+                    type: 'GET',
+                    data: {
+                        "productId": id
+                    },
+                    url: window.location.origin + '/product/bets',
+                    success: function (response) {
+                        done(JSON.parse(response));
+                    }
+                });
+            },
+            locator: 'items',
+            pageSize: 10,
+            className: 'paginationjs-theme-blue',
+            callback: function (data) {
+                dataContainer.loadTemplate($("#product-bet-template"), data);
+            }
+        });
     });
 }
