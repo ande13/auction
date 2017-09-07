@@ -29,6 +29,10 @@ function initEvents() {
                     url: window.location.origin + '/product/bets',
                     success: response => {
                         done(JSON.parse(response));
+                    },
+                    error: err => {
+                        const e = JSON.parse(err.responseText);
+                        console.log(e.error);
                     }
                 });
             },
@@ -63,11 +67,13 @@ function initEvents() {
                 "price": parseInt(price)
             },
             url: window.location.origin + '/product/bets/submit',
-            success: response => {
-                console.log(response);
+            success: () => {
+                $("#success-container").text('Bet successfully added').fadeIn().delay(2000).fadeOut();
+                $('#addBetModal').modal('hide');
             },
             error: err => {
-                console.log(err);
+                const e = JSON.parse(err.responseText);
+                $("#error-container").text(e.error).fadeIn().delay(2000).fadeOut();
             }
         })
     });

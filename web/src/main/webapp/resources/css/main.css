@@ -51,3 +51,9 @@ html {
 .btn {
     cursor: pointer;
 }
+
+.alert-success.alert, .alert-danger.alert {
+    margin-top: 5px;
+    margin-bottom: 0;
+    display: none;
+}

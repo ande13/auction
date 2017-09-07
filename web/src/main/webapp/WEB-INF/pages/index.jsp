@@ -74,6 +74,10 @@
                     <span class="input-group-addon">1234</span>
                     <input id="betValue" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
                 </div>
+                <div id="success-container" class="alert alert-success" role="alert">
+                </div>
+                <div id="error-container" class="alert alert-danger" role="alert">
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="submitBet" type="button" class="btn btn-primary">Add</button>

@@ -17,7 +17,7 @@ public class ProductsBetHistoryDAOImpl implements ProductsBetHistoryDAO<Products
     private static final String PRICE = "price";
 
     private static final String GET_RECORDS_BY_PARENT_ID = "from ProductsBetHistoryEntity h where h.productId = :productId order by h.creationDate desc";
-    private static final String GET_BET_BY_PARAMS = "from ProductsBetHistoryEntity h where h.productId = :productId and h.price = :price";
+    private static final String GET_BET_BY_PARAMS = "from ProductsBetHistoryEntity h where h.productId = :productId and h.price <= :price order by h.price desc";
 
     @Autowired
     private HibernateTemplate hibernateTemplate;
@@ -42,7 +42,7 @@ public class ProductsBetHistoryDAOImpl implements ProductsBetHistoryDAO<Products
         return hibernateTemplate.execute(session ->
                 session.createQuery(GET_BET_BY_PARAMS, ProductsBetHistoryEntity.class)
                         .setParameter(PRODUCT_ID, productId)
-                        .setParameter(PRICE, price).uniqueResult()
+                        .setParameter(PRICE, price).setMaxResults(1).uniqueResult()
         );
     }
 }

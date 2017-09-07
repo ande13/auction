@@ -16,7 +16,7 @@ public class ProductsEntity implements Serializable {
     private List<ProductsBetHistoryEntity> productsBets;
 
     public ProductsEntity() {
-        productsBets = new ArrayList<ProductsBetHistoryEntity>();
+        productsBets = new ArrayList<>();
     }
 
     @Id
