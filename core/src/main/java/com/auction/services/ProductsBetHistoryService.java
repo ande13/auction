@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface ProductsBetHistoryService<T extends ProductsBetHistoryEntity>  {
 
-    List<T> getBetsByProductId(int productId);
+    int getBetsCount(int productId);
+
+    List<T> getBetsByProductId(int productId, int offset, int itemsCount);
 
     ProductsBetHistoryEntity addBet(int productId, int price);
 

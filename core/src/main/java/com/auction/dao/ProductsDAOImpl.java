@@ -10,15 +10,15 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ProductsDAOImpl implements ProductsDAO<ProductsEntity> {
+public class ProductsDAOImpl extends BaseDAO implements ProductsDAO<ProductsEntity> {
+
+    private static final String GET_RECORDS_COUNT = "select count(1) from ProductsEntity";
 
     private static final String GET_RECORDS = "SELECT\n" +
             "  *\n" +
             "FROM products\n" +
             "  JOIN (SELECT\n" +
             "          product_id,\n" +
-            "          max(price) price,\n" +
-            "          max(creation_date) creation_date,\n" +
             "          count(*) count\n" +
             "        FROM products_bet_history\n" +
             "        GROUP BY product_id) bets ON products.id = bets.product_id\n" +
@@ -32,7 +32,7 @@ public class ProductsDAOImpl implements ProductsDAO<ProductsEntity> {
     }
 
     public int getRecordsCount() {
-        return hibernateTemplate.execute(session -> session.createQuery("select count(1) from ProductsEntity", Long.class).getSingleResult().intValue());
+        return hibernateTemplate.execute(session -> createQuery(session, GET_RECORDS_COUNT, Long.class).getSingleResult().intValue());
     }
 
     public List<ProductsEntity> getRecords(final int offset, final int itemsCount) {

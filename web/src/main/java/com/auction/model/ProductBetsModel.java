@@ -18,9 +18,13 @@ public class ProductBetsModel extends BaseModel {
     @Autowired
     private ProductsBetHistoryService<ProductsBetHistoryEntity> historyService;
 
-    public List<ProductBet> getBets(int productId) {
-        List<ProductsBetHistoryEntity> betsByProductId = historyService.getBetsByProductId(productId);
+    public List<ProductBet> getBets(int productId, int pageNumber) {
+        List<ProductsBetHistoryEntity> betsByProductId = historyService.getBetsByProductId(productId, getOffset(pageNumber), getItemsPerPage());
         return betsByProductId.stream().map(ModelsAdapter::toProductBet).collect(Collectors.toList());
+    }
+
+    public int getBetsCount(int productId) {
+        return historyService.getBetsCount(productId);
     }
 
     public ProductBet addBet(int productId, int price) {

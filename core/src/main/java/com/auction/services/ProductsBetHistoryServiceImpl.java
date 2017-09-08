@@ -15,8 +15,13 @@ public class ProductsBetHistoryServiceImpl implements ProductsBetHistoryService<
     private ProductsBetHistoryDAO<ProductsBetHistoryEntity> historyDAO;
 
     @Override
-    public List<ProductsBetHistoryEntity> getBetsByProductId(int productId) {
-        return historyDAO.getBetsByProductId(productId);
+    public int getBetsCount(int productId) {
+        return historyDAO.getBetsCount(productId);
+    }
+
+    @Override
+    public List<ProductsBetHistoryEntity> getBetsByProductId(int productId, int offset, int itemsCount) {
+        return historyDAO.getBetsByProductId(productId, offset, itemsCount);
     }
 
     @Override

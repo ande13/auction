@@ -7,14 +7,17 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
-public class ProductsBetHistoryDAOImpl implements ProductsBetHistoryDAO<ProductsBetHistoryEntity> {
+public class ProductsBetHistoryDAOImpl extends BaseDAO implements ProductsBetHistoryDAO<ProductsBetHistoryEntity> {
 
     private static final String PRODUCT_ID = "productId";
     private static final String PRICE = "price";
 
+    private static final String GET_BETS_COUNT = "select count(1) from ProductsBetHistoryEntity h where h.productId = :productId";
     private static final String GET_RECORDS_BY_PARENT_ID = "from ProductsBetHistoryEntity h where h.productId = :productId order by h.creationDate desc";
     private static final String GET_BET_BY_PARAMS = "from ProductsBetHistoryEntity h where h.productId = :productId and h.price <= :price order by h.price desc";
 
@@ -22,10 +25,21 @@ public class ProductsBetHistoryDAOImpl implements ProductsBetHistoryDAO<Products
     private HibernateTemplate hibernateTemplate;
 
     @Override
-    public List<ProductsBetHistoryEntity> getBetsByProductId(int productId) {
+    public int getBetsCount(int productId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put(PRODUCT_ID, productId);
         return hibernateTemplate.execute(session ->
-                session.createQuery(GET_RECORDS_BY_PARENT_ID, ProductsBetHistoryEntity.class)
-                        .setParameter(PRODUCT_ID, productId).list()
+                createQuery(session, GET_BETS_COUNT, Long.class, params).getSingleResult().intValue()
+        );
+    }
+
+    @Override
+    public List<ProductsBetHistoryEntity> getBetsByProductId(int productId, int offset, int itemsCount) {
+        Map<String, Object> params = new HashMap<>();
+        params.put(PRODUCT_ID, productId);
+        return hibernateTemplate.execute(session ->
+                createQuery(session, GET_RECORDS_BY_PARENT_ID, ProductsBetHistoryEntity.class, params)
+                        .setMaxResults(itemsCount).setFirstResult(offset).list()
         );
     }
 
@@ -39,10 +53,12 @@ public class ProductsBetHistoryDAOImpl implements ProductsBetHistoryDAO<Products
 
     @Override
     public ProductsBetHistoryEntity getBet(int productId, int price) {
+        Map<String, Object> params = new HashMap<>();
+        params.put(PRODUCT_ID, productId);
+        params.put(PRICE, price);
         return hibernateTemplate.execute(session ->
-                session.createQuery(GET_BET_BY_PARAMS, ProductsBetHistoryEntity.class)
-                        .setParameter(PRODUCT_ID, productId)
-                        .setParameter(PRICE, price).setMaxResults(1).uniqueResult()
+                createQuery(session, GET_BET_BY_PARAMS, ProductsBetHistoryEntity.class, params)
+                        .setMaxResults(1).uniqueResult()
         );
     }
 }

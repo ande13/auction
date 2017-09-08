@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping(value = "/auction")
-public class ProductsController {
+public class ProductsBaseController extends BaseController {
 
     @Autowired
     private ProductsModel productsModel;
