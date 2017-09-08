@@ -27,7 +27,7 @@ public class ProductsBetHistoryServiceImpl implements ProductsBetHistoryService<
     @Override
     public ProductsBetHistoryEntity addBet(int productId, int price) {
         ProductsBetHistoryEntity bet = getBet(productId, price);
-        if (bet != null && bet.getPrice() == price) {
+        if (bet != null && bet.getPrice() <= price) {
             throw new BusinessException("Bet with price " + price + " is already exist");
         }
         return historyDAO.addBet(productId, price);

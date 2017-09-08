@@ -73,7 +73,7 @@ function initEvents() {
     $('#submitBet').click(() => {
         const price = $('#betValue').val();
         new Promise((resolve, reject) => {
-            return isNormalInteger(price) ? resolve() : reject('Please enter normal price');
+            return isNormalInteger(price) && price > 0 ? resolve() : reject('Please enter normal price');
         }).then(() => {
             return new Promise((resolve, reject) => {
                 $.ajax({
