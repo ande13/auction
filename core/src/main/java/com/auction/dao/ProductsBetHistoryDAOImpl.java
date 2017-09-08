@@ -16,11 +16,10 @@ import java.util.Map;
 public class ProductsBetHistoryDAOImpl extends BaseDAO implements ProductsBetHistoryDAO<ProductsBetHistoryEntity> {
 
     private static final String PRODUCT_ID = "productId";
-    private static final String PRICE = "price";
 
     private static final String GET_BETS_COUNT = "select count(1) from ProductsBetHistoryEntity h where h.productId = :productId";
     private static final String GET_RECORDS_BY_PARENT_ID = "from ProductsBetHistoryEntity h where h.productId = :productId order by h.creationDate desc";
-    private static final String GET_BET_BY_PARAMS = "from ProductsBetHistoryEntity h where h.productId = :productId and h.price <= :price order by h.price desc";
+    private static final String GET_BET_BY_PARAMS = "select h from ProductsBetHistoryEntity h where h.productId = :productId order by h.creationDate, h.price desc";
 
     @Autowired
     private HibernateTemplate hibernateTemplate;
@@ -55,7 +54,6 @@ public class ProductsBetHistoryDAOImpl extends BaseDAO implements ProductsBetHis
     public ProductsBetHistoryEntity getBet(int productId, int price) {
         Map<String, Object> params = new HashMap<>();
         params.put(PRODUCT_ID, productId);
-        params.put(PRICE, price);
         return hibernateTemplate.execute(session ->
                 createQuery(session, GET_BET_BY_PARAMS, ProductsBetHistoryEntity.class, params)
                         .setMaxResults(1).uniqueResult()

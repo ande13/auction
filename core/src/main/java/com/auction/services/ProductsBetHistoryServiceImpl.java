@@ -11,6 +11,9 @@ import java.util.List;
 @Service
 public class ProductsBetHistoryServiceImpl implements ProductsBetHistoryService<ProductsBetHistoryEntity> {
 
+    private static final String LOWER_PRICE_ERROR = "Current price %s is lower than the last price. The last price is %s";
+    private static final String EXIST_PRICE_ERROR = "Bet with price %s is already exist";
+
     @Autowired
     private ProductsBetHistoryDAO<ProductsBetHistoryEntity> historyDAO;
 
@@ -27,8 +30,14 @@ public class ProductsBetHistoryServiceImpl implements ProductsBetHistoryService<
     @Override
     public ProductsBetHistoryEntity addBet(int productId, int price) {
         ProductsBetHistoryEntity bet = getBet(productId, price);
-        if (bet != null && bet.getPrice() <= price) {
-            throw new BusinessException("Bet with price " + price + " is already exist");
+        if (bet != null) {
+            int betPrice = bet.getPrice();
+            if (price < betPrice) {
+                throw new BusinessException(String.format(LOWER_PRICE_ERROR, price, betPrice));
+            }
+            if (betPrice == price) {
+                throw new BusinessException(String.format(EXIST_PRICE_ERROR, price));
+            }
         }
         return historyDAO.addBet(productId, price);
     }
