@@ -51,7 +51,7 @@ public class ProductsBetHistoryDAOImpl extends BaseDAO implements ProductsBetHis
     }
 
     @Override
-    public ProductsBetHistoryEntity getBet(int productId, int price) {
+    public ProductsBetHistoryEntity getLastBet(int productId, int price) {
         Map<String, Object> params = new HashMap<>();
         params.put(PRODUCT_ID, productId);
         return hibernateTemplate.execute(session ->

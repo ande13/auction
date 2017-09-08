@@ -29,7 +29,7 @@ public class ProductsBetHistoryServiceImpl implements ProductsBetHistoryService<
 
     @Override
     public ProductsBetHistoryEntity addBet(int productId, int price) {
-        ProductsBetHistoryEntity bet = getBet(productId, price);
+        ProductsBetHistoryEntity bet = getLastBet(productId, price);
         if (bet != null) {
             int betPrice = bet.getPrice();
             if (price < betPrice) {
@@ -43,7 +43,7 @@ public class ProductsBetHistoryServiceImpl implements ProductsBetHistoryService<
     }
 
     @Override
-    public ProductsBetHistoryEntity getBet(int productId, int price) {
-        return historyDAO.getBet(productId, price);
+    public ProductsBetHistoryEntity getLastBet(int productId, int price) {
+        return historyDAO.getLastBet(productId, price);
     }
 }
