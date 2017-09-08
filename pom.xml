@@ -16,13 +16,12 @@
         <spring.version>4.3.10.RELEASE</spring.version>
         <!-- Hibernate -->
         <hibernate.version>5.2.10.Final</hibernate.version>
-
+        <log4j.version>1.2.17</log4j.version>
         <db.driver>com.mysql.cj.jdbc.Driver</db.driver>
         <db.url>jdbc:mysql://localhost:3306</db.url>
         <db.name>auction</db.name>
         <db.user>admin</db.user>
         <db.password>admin</db.password>
-
     </properties>
 
     <dependencies>
@@ -36,7 +35,11 @@
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
     </dependencies>
 
     <modules>

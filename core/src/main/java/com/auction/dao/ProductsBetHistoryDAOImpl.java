@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
+@Transactional
 public class ProductsBetHistoryDAOImpl extends BaseDAO implements ProductsBetHistoryDAO<ProductsBetHistoryEntity> {
 
     private static final String PRODUCT_ID = "productId";
@@ -44,7 +45,6 @@ public class ProductsBetHistoryDAOImpl extends BaseDAO implements ProductsBetHis
     }
 
     @Override
-    @Transactional
     public ProductsBetHistoryEntity addBet(int productId, int price) {
         ProductsBetHistoryEntity bet = new ProductsBetHistoryEntity(productId, price, new Date());
         hibernateTemplate.execute(session -> session.save(bet));

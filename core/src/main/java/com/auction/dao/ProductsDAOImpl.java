@@ -6,10 +6,12 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
+@Transactional
 public class ProductsDAOImpl extends BaseDAO implements ProductsDAO<ProductsEntity> {
 
     private static final String GET_RECORDS_COUNT = "select count(1) from ProductsEntity";
