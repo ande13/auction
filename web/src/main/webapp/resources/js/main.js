@@ -1,6 +1,61 @@
 const selectedProduct = {};
+const Products = {
+    count: 0
+};
 
 function init(products) {
+
+    const socket = new WebSocket("ws://" + location.host + "/myHandler");
+    socket.onopen = function () {
+        console.log("connected");
+        setInterval(() => {
+            socket.send('CHECK-DATA');
+        }, 1000);
+    };
+
+    socket.onclose = function (event) {
+        if (event.wasClean) {
+            console.log('connection closed');
+        } else {
+            console.log('connection terminated');
+        }
+        console.log('Code: ' + event.code + ' reason: ' + event.reason);
+    };
+
+    socket.onmessage = function (event) {
+        const response = JSON.parse(event.data);
+        if (response.count !== Products.count) {
+            Products.count = response.count;
+            const dataContainer = $('.products-data-container');
+            let pageNum = 1;
+            try {
+                pageNum = $('#products-list').pagination('getSelectedPageNum');
+            } catch (err){
+                console.log('pagination is not init');
+            }
+            $('#products-list').pagination({
+                dataSource: window.location.href + '/data',
+                locator: 'items',
+                totalNumber: response.count,
+                pageSize: 10,
+                className: 'paginationjs-theme-blue',
+                callback: data => {
+                    dataContainer.loadTemplate($("#product-template"), data);
+                    initEvents();
+                }
+            });
+            $('#products-list').addHook('afterRender', function(isForced) {
+                $('#products-list').pagination('go', pageNum);
+            });
+        }
+    };
+
+    socket.onerror = function (error) {
+        console.log("Error " + error.message);
+    };
+}
+
+function initProducts(products) {
     const dataContainer = $('.products-data-container');
     $('#products-list').pagination({
         dataSource: window.location.href + '/data',
