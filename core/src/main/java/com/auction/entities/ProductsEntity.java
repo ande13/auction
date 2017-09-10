@@ -39,7 +39,7 @@ public class ProductsEntity implements Serializable {
         this.name = name;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "productsEntity")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "productsEntity")
     public List<ProductsBetHistoryEntity> getProductsBets() {
         return this.productsBets;
     }

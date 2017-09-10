@@ -3,6 +3,7 @@ package com.auction.controller;
 import com.auction.model.ProductBetsModel;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +15,7 @@ public class ProductBetsBaseController extends BaseController {
     @Autowired
     private ProductBetsModel betsModel;
 
-    @RequestMapping(value = "/product/bets", method = RequestMethod.GET)
+    @RequestMapping(value = "/product/bets", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String getBets(@RequestParam int productId, @RequestParam int pageNumber) {
         JSONObject json = new JSONObject();
         json.put("items", betsModel.getBets(productId, pageNumber));

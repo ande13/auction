@@ -12,5 +12,5 @@ public interface ProductsBetHistoryDAO<T extends ProductsBetHistoryEntity> {
 
     ProductsBetHistoryEntity addBet(int productId, int price);
 
-    ProductsBetHistoryEntity getLastBet(int productId, int price);
+    ProductsBetHistoryEntity getLastBet(int productId);
 }

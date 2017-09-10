@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Auction</title>
-    <link rel="stylesheet" type="text/css" href="/resources/css/pagination.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/main.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/bootstrap/4.0.0-beta/bootstrap.min.css">
-    <script src="/resources/js/jquery/jquery-3.2.1.min.js"></script>
-    <script src="/resources/js/jquery/jquery.loadTemplate-1.4.4.js"></script>
-    <script src="/resources/js/bootstrap/popper.min.js"></script>
-    <script src="/resources/js/bootstrap/4.0.0-beta/bootstrap.min.js"></script>
-    <script src="/resources/js/pagination.js"></script>
-    <script src="/resources/js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="/webappresources/css/pagination.css">
+    <link rel="stylesheet" type="text/css" href="/webappresources/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/webappresources/css/bootstrap/4.0.0-beta/bootstrap.min.css">
+    <script src="/webappresources/js/jquery/jquery-3.2.1.min.js"></script>
+    <script src="/webappresources/js/jquery/jquery.loadTemplate-1.4.4.js"></script>
+    <script src="/webappresources/js/bootstrap/popper.min.js"></script>
+    <script src="/webappresources/js/bootstrap/4.0.0-beta/bootstrap.min.js"></script>
+    <script src="/webappresources/js/pagination.js"></script>
+    <script src="/webappresources/js/main.js"></script>
     <script>
         $(document).ready(function () {
             init({

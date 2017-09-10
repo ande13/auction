@@ -24,7 +24,7 @@ public class ProductsBaseController extends BaseController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/products/data", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/products/data", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String getData(@RequestParam int pageNumber) {
         JSONObject json = new JSONObject();
         json.put("items", productsModel.getProductsItems(pageNumber));
